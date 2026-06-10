@@ -1,0 +1,137 @@
+import 'package:flutter/material.dart';
+import '../theme/theme.dart';
+import '../models/week_info.dart';
+
+class WeekDateStrip extends StatelessWidget {
+  final DateTime selectedDate;
+  final ValueChanged<DateTime> onDateSelected;
+
+  const WeekDateStrip({
+    super.key,
+    required this.selectedDate,
+    required this.onDateSelected,
+  });
+
+  static const _dayLabels = ['M', 'TU', 'W', 'TH', 'F', 'SA', 'SU'];
+
+  @override
+  Widget build(BuildContext context) {
+    final today = DateTime.now();
+    final weekDates = WeekInfo.weekDates(selectedDate);
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Date header
+          Padding(
+            padding: const EdgeInsets.only(left: 8, bottom: 12),
+            child: Text(
+              _formatHeaderDate(selectedDate),
+              style: const TextStyle(
+                fontSize: 17,
+                fontWeight: FontWeight.w700,
+                color: AppColors.textPrimary,
+              ),
+            ),
+          ),
+          // Day labels row
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: List.generate(7, (index) {
+              return SizedBox(
+                width: 40,
+                child: Center(
+                  child: Text(
+                    _dayLabels[index],
+                    style: const TextStyle(
+                      fontSize: 11,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.textMuted,
+                      letterSpacing: 0.3,
+                    ),
+                  ),
+                ),
+              );
+            }),
+          ),
+          const SizedBox(height: 8),
+          // Date numbers row
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: List.generate(7, (index) {
+              final date = weekDates[index];
+              final isSelected = _isSameDay(date, selectedDate);
+              final isToday = _isSameDay(date, today);
+              final hasActivity = _isSameDay(date, today);
+
+              return GestureDetector(
+                onTap: () => onDateSelected(date),
+                child: SizedBox(
+                  width: 40,
+                  child: Column(
+                    children: [
+                      Container(
+                        width: 36,
+                        height: 36,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: isSelected
+                              ? Colors.transparent
+                              : Colors.transparent,
+                          border: isSelected
+                              ? Border.all(color: AppColors.green, width: 2)
+                              : null,
+                        ),
+                        child: Center(
+                          child: Text(
+                            '${date.day}',
+                            style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: isSelected
+                                  ? FontWeight.w700
+                                  : FontWeight.w400,
+                              color: isSelected
+                                  ? AppColors.textPrimary
+                                  : AppColors.textSecondary,
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      // Activity dot
+                      if (hasActivity)
+                        Container(
+                          width: 5,
+                          height: 5,
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: AppColors.green,
+                          ),
+                        )
+                      else
+                        const SizedBox(height: 5),
+                    ],
+                  ),
+                ),
+              );
+            }),
+          ),
+        ],
+      ),
+    );
+  }
+
+  String _formatHeaderDate(DateTime date) {
+    const months = [
+      'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+      'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+    ];
+    const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+    return 'Today, ${date.day} ${months[date.month - 1]} ${date.year}';
+  }
+
+  bool _isSameDay(DateTime a, DateTime b) =>
+      a.year == b.year && a.month == b.month && a.day == b.day;
+}
