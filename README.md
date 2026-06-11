@@ -14,6 +14,9 @@ A Flutter application developed as part of the interview assessment task. The ap
 | ----------------- | ------------------------------------------------------------------- |
 | `flutter`         | Core framework used to build the cross-platform mobile application. |
 | `cupertino_icons` | Provides iOS-style icons for a consistent user interface.           |
+| `flutter_svg`     | Used for rendering SVG images and icons, allowing scalable and high-quality graphics 
+                    |  without loss of quality across different screen sizes.   
+
 
 
 ---
