@@ -135,7 +135,7 @@ Application entry point.
 
 Watch a complete walkthrough of the application:
 
-[Watch App Demo Video](https://drive.google.com/file/d/xxxx/view)
+[Watch App Demo Video](https://drive.google.com/file/d/1lxvN0WpaZxP6OdI3F-59PLqO7RbMsVph/view?usp=sharing)
 
 ---
 
