@@ -10,8 +10,6 @@ A Flutter application developed as part of the interview assessment task. The ap
 
 # 📦 Dependencies Used & Why
 
-# 📦 Dependencies Used & Why
-
 | Dependency        | Purpose                                                             |
 | ----------------- | ------------------------------------------------------------------- |
 | `flutter`         | Core framework used to build the cross-platform mobile application. |
