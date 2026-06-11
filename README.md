@@ -10,14 +10,11 @@ A Flutter application developed as part of the interview assessment task. The ap
 
 # 📦 Dependencies Used & Why
 
-| Dependency        | Purpose                                                             |
-| ----------------- | ------------------------------------------------------------------- |
-| `flutter`         | Core framework used to build the cross-platform mobile application. |
-| `cupertino_icons` | Provides iOS-style icons for a consistent user interface.           |
-| `flutter_svg`     | Used for rendering SVG images and icons, allowing scalable and high-quality graphics 
-                    |  without loss of quality across different screen sizes.   
-
-
+| Dependency        | Purpose                                                                                                                                     |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| `flutter`         | Core framework used to build the cross-platform mobile application.                                                                         |
+| `cupertino_icons` | Provides iOS-style icons for a consistent user interface.                                                                                   |
+| `flutter_svg`     | Used for rendering SVG images and icons, allowing scalable and high-quality graphics without loss of quality across different screen sizes. |
 
 ---
 
@@ -54,11 +51,11 @@ Contains all data models used throughout the application. These models represent
 
 ### `screens/`
 
-Contains all application screens. Each screen is organized into its own feature folder.
+Contains all application screens. Each screen is organized into its own dedicated folder to maintain a clear and scalable structure.
 
 #### `home_screen/`
 
-Contains the Home Screen implementation and all widgets that are specific to the Home Screen.
+Contains the Home Screen implementation and all widgets specific to the Home Screen.
 
 #### `mood_screen/`
 
@@ -66,19 +63,20 @@ Contains the Mood Screen implementation and all widgets related to mood tracking
 
 #### `training_plan_screen/`
 
-Contains the Training Plan Screen implementation and all widgets used to display and manage training plans.
+Contains the Training Plan Screen implementation and all widgets used for displaying training plans and workout-related information.
 
 ### `widgets/`
 
-Each screen contains a dedicated `widgets` folder that holds reusable UI components used only within that screen. This keeps the screen file clean and improves code organization and maintainability.
+Each screen contains a dedicated `widgets` folder that stores reusable UI components used only within that screen. This approach keeps screen files clean, modular, and easy to maintain.
 
 ### `theme/`
 
-Contains application-wide styling, colors, typography, and theme configurations to ensure a consistent user experience throughout the app.
+Contains application-wide styling configurations, including colors, typography, and theme definitions to ensure a consistent user experience across the application.
 
 ### `main.dart`
 
-The application's entry point. It initializes the app, configures themes, and loads the initial screen.
+The entry point of the application. It initializes the app, applies the theme configuration, and loads the initial screen.
+
 
 ---
 
