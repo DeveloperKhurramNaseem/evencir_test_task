@@ -143,7 +143,7 @@ Watch a complete walkthrough of the application:
 
 Download and install the latest APK:
 
-[Download APK](https://github.com/username/project-name/releases/download/v1.0/app-release.apk)
+[Download APK](https://github.com/DeveloperKhurramNaseem/evencir_test_task/releases/download/v1.0.0/app-release.apk)
 
 ---
 
