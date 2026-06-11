@@ -32,7 +32,7 @@ class WeekSectionHeader extends StatelessWidget {
               Text(
                 'Week ${week.weekNumber}',
                 style: const TextStyle(
-                  fontSize: 20,
+                  fontSize: 18,
                   fontWeight: FontWeight.w700,
                   color: PlanColors.textPrimary,
                 ),

@@ -81,44 +81,49 @@ class _TrainingDayRowState extends State<TrainingDayRow>
           curve: Curves.easeOut,
           margin: const EdgeInsets.only(bottom: 2),
           decoration: BoxDecoration(
-            color: isAccepting
-                ? PlanColors.dropTargetBg
-                : Colors.transparent,
+            color: isAccepting ? PlanColors.dropTargetBg : Colors.transparent,
             borderRadius: BorderRadius.circular(10),
             border: isAccepting
                 ? Border.all(color: PlanColors.dropTargetBorder, width: 1.5)
                 : showDropZone && widget.day.workouts.isEmpty
-                    ? Border.all(
-                        color: PlanColors.divider.withOpacity(0.0),
-                        width: 1,
-                      )
-                    : null,
+                ? Border.all(
+                    color: PlanColors.divider.withOpacity(0.0),
+                    width: 1,
+                  )
+                : null,
           ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
+          child: Stack(
+            // mainAxisSize: MainAxisSize.min,
+            alignment: Alignment.center,
             children: [
-              _buildDayHeader(isAccepting, showDropZone),
+              ColoredBox(
+                color: Colors.transparent,
+                child: _buildDayHeader(isAccepting, showDropZone),
+              ),
               // Cards
               if (widget.day.workouts.isNotEmpty)
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(56, 0, 16, 12),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: widget.day.workouts.map((workout) {
-                      return Padding(
-                        padding: const EdgeInsets.only(bottom: 8),
-                        child: DraggableWorkoutCard(
-                          workout: workout,
-                          date: widget.day.date,
-                          onGlobalDragStarted: widget.onGlobalDragStarted,
-                          onGlobalDragEnded: widget.onGlobalDragEnded,
-                        ),
-                      );
-                    }).toList(),
+                ColoredBox(
+                  color: Colors.transparent,
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(65, 8, 7, 0),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: widget.day.workouts.map((workout) {
+                        return Padding(
+                          padding: const EdgeInsets.only(bottom: 8),
+                          child: DraggableWorkoutCard(
+                            workout: workout,
+                            date: widget.day.date,
+                            onGlobalDragStarted: widget.onGlobalDragStarted,
+                            onGlobalDragEnded: widget.onGlobalDragEnded,
+                          ),
+                        );
+                      }).toList(),
+                    ),
                   ),
-                )
-              else if (isAccepting)
-                _buildDropPlaceholder(),
+                ),
+              // else if (isAccepting)
+              //   _buildDropPlaceholder(),
             ],
           ),
         );

@@ -38,7 +38,7 @@ const List<MoodData> kMoods = [
     emoji: '😊',
     faceColor: Color(0xFFF5D08A),
     // arcColors: [Color(0xFFF5A623), Color(0xFFFF6B6B)],
-arcColors: [Color(0xFFC9BBEF)],
+    arcColors: [Color(0xFFC9BBEF)],
     startAngle: 0, // right
     sweepAngle: math.pi / 2, // right → bottom
   ),
@@ -47,7 +47,7 @@ arcColors: [Color(0xFFC9BBEF)],
     emoji: '😟',
     faceColor: Color(0xFFB8C5E0),
     // arcColors: [Color(0xFF9B59B6), Color(0xFF6C5CE7)],
-    arcColors: [Color(0xFF28DB3)],
+    arcColors: [Color(0xFFF28DB3)],
     startAngle: math.pi / 2, // bottom
     sweepAngle: math.pi / 2, // bottom → left
   ),
@@ -55,7 +55,8 @@ arcColors: [Color(0xFFC9BBEF)],
     label: 'Happy',
     emoji: '😔',
     faceColor: Color(0xFFA8B8D8),
-    arcColors: [Color(0xFF667EEA), Color(0xFF764BA2)],
+    // arcColors: [Color(0xFF667EEA), Color(0xFF764BA2)],
+    arcColors: [Color(0xFFF99955)],
     startAngle: math.pi, // left
     sweepAngle: math.pi / 2, // left → top
   ),
@@ -63,13 +64,17 @@ arcColors: [Color(0xFFC9BBEF)],
 
 /// Full arc gradient stops (all four segments merged, clockwise from top)
 final List<Color> kArcGradient = [
-  const Color(0xFF7EC8C8), // teal  (top)
-  const Color(0xFFF5A623), // orange
-  const Color(0xFFFF6B6B), // coral (right → bottom)
-  const Color(0xFF9B59B6), // purple
-  const Color(0xFF6C5CE7), // indigo (bottom → left)
-  const Color(0xFF764BA2), // violet
-  const Color(0xFF7EC8C8), // back to teal (wrap)
+  Color(0xFF6EB9AD),
+  Color(0xFFC9BBEF),
+  Color(0xFFF28DB3),
+  Color(0xFFF99955),
+  // const Color(0xFF7EC8C8), // teal  (top)
+  // const Color(0xFFF5A623), // orange
+  // const Color(0xFFFF6B6B), // coral (right → bottom)
+  // const Color(0xFF9B59B6), // purple
+  // const Color(0xFF6C5CE7), // indigo (bottom → left)
+  // const Color(0xFF764BA2), // violet
+  // const Color(0xFF7EC8C8), // back to teal (wrap)
 ];
 
 // ─── Screen ────────────────────────────────────────────────────────────────
@@ -179,158 +184,160 @@ class _MoodScreenState extends State<MoodScreen> with TickerProviderStateMixin {
               child: Image.asset('assets/images/mood_bg.png'),
             ),
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // ── Header ──────────────────────────────────────────────
-              Padding(
-                padding: const EdgeInsets.fromLTRB(24, 20, 24, 0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'Mood',
-                      style: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.w400,
-                        color: AppColors.textPrimary,
-                        letterSpacing: -0.5,
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 14),
-                      child: Text(
-                        'Start your day',
+          SafeArea(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // ── Header ──────────────────────────────────────────────
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(24, 20, 24, 0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Mood',
                         style: TextStyle(
-                          fontSize: 15,
+                          fontSize: 30,
                           fontWeight: FontWeight.w400,
                           color: AppColors.textPrimary,
-                          letterSpacing: 0.2,
+                          letterSpacing: -0.5,
                         ),
                       ),
-                    ),
-                    const SizedBox(height: 4),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 14),
-                      child: const Text(
-                        'How are you feeling at the\nMoment?',
-                        style: TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.white,
-                          height: 1.3,
-                          letterSpacing: -0.3,
+                      const SizedBox(height: 20),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 14),
+                        child: Text(
+                          'Start your day',
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w400,
+                            color: AppColors.textPrimary,
+                            letterSpacing: 0.2,
+                          ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              ),
-
-              // ── Mood Ring + Face ─────────────────────────────────────
-              Center(
-                child: SizedBox(
-                  width: ringDiameter + 60,
-                  height: ringDiameter + 60,
-                  child: LayoutBuilder(
-                    builder: (context, constraints) {
-                      final center = Offset(
-                        constraints.maxWidth / 2,
-                        constraints.maxHeight / 2,
-                      );
-                      return GestureDetector(
-                        onPanUpdate: (d) => _onDragUpdate(d, center),
-                        child: Stack(
-                          alignment: Alignment.center,
-                          children: [
-                            // Gradient arc ring
-                            CustomPaint(
-                              size: Size(ringDiameter, ringDiameter),
-                              painter: MoodRingPainter(
-                                handleAngle: _handleAngle,
-                                colors: kArcGradient,
-                              ),
-                            ),
-
-                            // Face card
-                            ScaleTransition(
-                              scale: _faceScale,
-                              child: _MoodFace(
-                                mood: mood,
-                                size: ringDiameter * 0.44,
-                              ),
-                            ),
-
-                            // Draggable handle
-                            _DragHandle(
-                              angle: _handleAngle,
-                              radius: ringDiameter / 2,
-                              center: center,
-                            ),
-                          ],
+                      const SizedBox(height: 4),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 14),
+                        child: const Text(
+                          'How are you feeling at the\nMoment?',
+                          style: TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white,
+                            height: 1.3,
+                            letterSpacing: -0.3,
+                          ),
                         ),
-                      );
-                    },
-                  ),
-                ),
-              ),
-
-              // ── Mood label ───────────────────────────────────────────
-              FadeTransition(
-                opacity: _labelFade,
-                child: Center(
-                  child: Text(
-                    mood.label,
-                    style: const TextStyle(
-                      fontSize: 26,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.white,
-                      letterSpacing: -0.2,
-                    ),
-                  ),
-                ),
-              ),
-
-              const Spacer(),
-
-              // ── Continue button ──────────────────────────────────────
-              Padding(
-                padding: const EdgeInsets.fromLTRB(16, 0, 16, 20),
-                child: AnimatedContainer(
-                  duration: const Duration(milliseconds: 400),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: AppColors.textPrimary,
-                    // gradient: LinearGradient(
-                    //   colors: [
-                    //     mood.arcColors.first.withOpacity(0.9),
-                    //     mood.arcColors.last.withOpacity(0.9),
-                    //   ],
-                    // ),
-                    boxShadow: [
-                      // BoxShadow(
-                      //   color: mood.arcColors.first.withOpacity(0.35),
-                      //   blurRadius: 20,
-                      //   offset: const Offset(0, 6),
-                      // ),
+                      ),
                     ],
                   ),
-                  child: Material(
-                    color: Colors.transparent,
-                    child: InkWell(
+                ),
+
+                // ── Mood Ring + Face ─────────────────────────────────────
+                Center(
+                  child: SizedBox(
+                    width: ringDiameter + 60,
+                    height: ringDiameter + 60,
+                    child: LayoutBuilder(
+                      builder: (context, constraints) {
+                        final center = Offset(
+                          constraints.maxWidth / 2,
+                          constraints.maxHeight / 2,
+                        );
+                        return GestureDetector(
+                          onPanUpdate: (d) => _onDragUpdate(d, center),
+                          child: Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              // Gradient arc ring
+                              CustomPaint(
+                                size: Size(ringDiameter, ringDiameter),
+                                painter: MoodRingPainter(
+                                  handleAngle: _handleAngle,
+                                  colors: kArcGradient,
+                                ),
+                              ),
+
+                              // Face card
+                              ScaleTransition(
+                                scale: _faceScale,
+                                child: _MoodFace(
+                                  mood: mood,
+                                  size: ringDiameter * 0.44,
+                                ),
+                              ),
+
+                              // Draggable handle
+                              _DragHandle(
+                                angle: _handleAngle,
+                                radius: ringDiameter / 2,
+                                center: center,
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+
+                // ── Mood label ───────────────────────────────────────────
+                FadeTransition(
+                  opacity: _labelFade,
+                  child: Center(
+                    child: Text(
+                      mood.label,
+                      style: const TextStyle(
+                        fontSize: 26,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.white,
+                        letterSpacing: -0.2,
+                      ),
+                    ),
+                  ),
+                ),
+
+                const Spacer(),
+
+                // ── Continue button ──────────────────────────────────────
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 0, 16, 20),
+                  child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 400),
+                    decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                      onTap: () {},
-                      child: const SizedBox(
-                        height: 55,
-                        child: Center(
-                          child: Text(
-                            'Continue',
-                            style: TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.w600,
-                              color: AppColors.black,
-                              letterSpacing: 0.1,
+                      color: AppColors.textPrimary,
+                      // gradient: LinearGradient(
+                      //   colors: [
+                      //     mood.arcColors.first.withOpacity(0.9),
+                      //     mood.arcColors.last.withOpacity(0.9),
+                      //   ],
+                      // ),
+                      boxShadow: [
+                        // BoxShadow(
+                        //   color: mood.arcColors.first.withOpacity(0.35),
+                        //   blurRadius: 20,
+                        //   offset: const Offset(0, 6),
+                        // ),
+                      ],
+                    ),
+                    child: Material(
+                      color: Colors.transparent,
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(10),
+                        onTap: () {},
+                        child: const SizedBox(
+                          height: 55,
+                          child: Center(
+                            child: Text(
+                              'Continue',
+                              style: TextStyle(
+                                fontSize: 17,
+                                fontWeight: FontWeight.w600,
+                                color: AppColors.black,
+                                letterSpacing: 0.1,
+                              ),
                             ),
                           ),
                         ),
@@ -338,8 +345,8 @@ class _MoodScreenState extends State<MoodScreen> with TickerProviderStateMixin {
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ],
       ),
@@ -513,4 +520,3 @@ class _DragHandle extends StatelessWidget {
     );
   }
 }
-

@@ -35,7 +35,12 @@ class WorkoutCardContent extends StatelessWidget {
         color: isDragging
             ? PlanColors.cardBg.withOpacity(0.85)
             : PlanColors.cardBg,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(1),
+          bottomLeft: Radius.circular(1),
+          topRight: Radius.circular(12),
+          bottomRight: Radius.circular(12),
+        ),
         boxShadow: isDragging
             ? [
                 BoxShadow(
@@ -148,8 +153,10 @@ class _DraggableWorkoutCardState extends State<DraggableWorkoutCard> {
 
   @override
   Widget build(BuildContext context) {
-    final dragData =
-        WorkoutDragData(workout: widget.workout, fromDate: widget.date);
+    final dragData = WorkoutDragData(
+      workout: widget.workout,
+      fromDate: widget.date,
+    );
 
     return LongPressDraggable<WorkoutDragData>(
       data: dragData,
@@ -185,7 +192,10 @@ class _DraggableWorkoutCardState extends State<DraggableWorkoutCard> {
         color: Colors.transparent,
         child: SizedBox(
           // Match the card width based on screen; we use a fixed width for feedback
-          width: MediaQuery.of(context).size.width - 32 - 56, // screen - padding - day column
+          width:
+              MediaQuery.of(context).size.width -
+              32 -
+              56, // screen - padding - day column
           child: WorkoutCardContent(
             workout: widget.workout,
             isDragging: true,

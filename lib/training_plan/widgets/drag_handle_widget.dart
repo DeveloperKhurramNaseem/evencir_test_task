@@ -14,18 +14,17 @@ class DragHandleWidget extends StatelessWidget {
       width: 14,
       height: 22,
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        spacing: 4,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: List.generate(3, (row) {
           return Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            spacing: 4,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: List.generate(2, (col) {
               return Container(
                 width: 4,
                 height: 4,
-                decoration: BoxDecoration(
-                  color: color,
-                  shape: BoxShape.circle,
-                ),
+                decoration: BoxDecoration(color: color, shape: BoxShape.circle),
               );
             }),
           );

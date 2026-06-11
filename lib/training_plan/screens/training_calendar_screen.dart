@@ -1,3 +1,4 @@
+import 'package:evencir_test/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import '../models/training_models.dart';
 import '../theme/plan_colors.dart';
@@ -171,8 +172,8 @@ class _TrainingCalendarScreenState extends State<TrainingCalendarScreen> {
           const Text(
             'Training Calendar',
             style: TextStyle(
-              fontSize: 26,
-              fontWeight: FontWeight.w800,
+              fontSize: 24,
+              fontWeight: FontWeight.w400,
               color: PlanColors.textPrimary,
               letterSpacing: -0.5,
             ),
@@ -183,8 +184,8 @@ class _TrainingCalendarScreenState extends State<TrainingCalendarScreen> {
               'Save',
               style: TextStyle(
                 fontSize: 17,
-                fontWeight: FontWeight.w600,
-                color: PlanColors.blue,
+                fontWeight: FontWeight.w700,
+                color: AppColors.textPrimary,
               ),
             ),
           ),
@@ -259,66 +260,7 @@ class _TrainingCalendarScreenState extends State<TrainingCalendarScreen> {
       );
     }
     return const SizedBox.shrink();
-  }
-
-  Widget _buildBottomNavBar() {
-    const items = [
-      _NavItem(icon: Icons.local_fire_department_outlined, label: 'Nutrition'),
-      _NavItem(
-        icon: Icons.calendar_today_rounded,
-        label: 'Plan',
-        selected: true,
-      ),
-      _NavItem(icon: Icons.sentiment_satisfied_outlined, label: 'Mood'),
-      _NavItem(icon: Icons.person_outline, label: 'Profile'),
-    ];
-
-    return Container(
-      decoration: const BoxDecoration(
-        color: PlanColors.grey,
-        border: Border(top: BorderSide(color: PlanColors.divider, width: 0.5)),
-      ),
-      child: SafeArea(
-        top: false,
-        child: SizedBox(
-          height: 60,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: items.map((item) => _buildNavItem(item)).toList(),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildNavItem(_NavItem item) {
-    return SizedBox(
-      width: 70,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            item.icon,
-            size: 22,
-            color: item.selected
-                ? PlanColors.textPrimary
-                : PlanColors.textMuted,
-          ),
-          const SizedBox(height: 3),
-          Text(
-            item.label,
-            style: TextStyle(
-              fontSize: 10,
-              fontWeight: item.selected ? FontWeight.w600 : FontWeight.w400,
-              color: item.selected
-                  ? PlanColors.textPrimary
-                  : PlanColors.textMuted,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+  } 
 
   void _onSave() {
     ScaffoldMessenger.of(context).showSnackBar(
