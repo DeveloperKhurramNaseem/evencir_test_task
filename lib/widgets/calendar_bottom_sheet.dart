@@ -39,13 +39,19 @@ class _CalendarBottomSheetState extends State<CalendarBottomSheet> {
   late DateTime _viewMonth;
   late DateTime _selectedDate;
 
-  static const _monthNames = [
-    'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
-  ];
   static const _fullMonthNames = [
-    'January', 'February', 'March', 'April', 'May', 'June',
-    'July', 'August', 'September', 'October', 'November', 'December',
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
   ];
 
   @override
@@ -101,14 +107,14 @@ class _CalendarBottomSheetState extends State<CalendarBottomSheet> {
                   onTap: _previousMonth,
                   child: const Icon(
                     Icons.chevron_left,
-                    color: AppColors.textSecondary,
+                    color: AppColors.textPrimary,
                     size: 22,
                   ),
                 ),
                 Text(
                   '${_fullMonthNames[_viewMonth.month - 1]} ${_viewMonth.year}',
                   style: const TextStyle(
-                    fontSize: 16,
+                    fontSize: 17,
                     fontWeight: FontWeight.w700,
                     color: AppColors.textPrimary,
                   ),
@@ -117,7 +123,7 @@ class _CalendarBottomSheetState extends State<CalendarBottomSheet> {
                   onTap: _nextMonth,
                   child: const Icon(
                     Icons.chevron_right,
-                    color: AppColors.textSecondary,
+                    color: AppColors.textPrimary,
                     size: 22,
                   ),
                 ),
@@ -175,9 +181,9 @@ class _DayLabel extends StatelessWidget {
         child: Text(
           label,
           style: const TextStyle(
-            fontSize: 11,
-            fontWeight: FontWeight.w600,
-            color: AppColors.textMuted,
+            fontSize: 12,
+            fontWeight: FontWeight.w700,
+            color: AppColors.textPrimary,
             letterSpacing: 0.3,
           ),
         ),
@@ -202,8 +208,7 @@ class _CalendarGrid extends StatelessWidget {
     final firstDay = DateTime(viewMonth.year, viewMonth.month, 1);
     // weekday: 1=Mon, 7=Sun; offset for Mon-first grid
     final startOffset = firstDay.weekday - 1;
-    final daysInMonth =
-        DateTime(viewMonth.year, viewMonth.month + 1, 0).day;
+    final daysInMonth = DateTime(viewMonth.year, viewMonth.month + 1, 0).day;
     final totalCells = startOffset + daysInMonth;
     final rows = (totalCells / 7).ceil();
     final today = DateTime.now();
@@ -222,8 +227,7 @@ class _CalendarGrid extends StatelessWidget {
                 return const SizedBox(width: 40, height: 40);
               }
 
-              final date =
-                  DateTime(viewMonth.year, viewMonth.month, dayNumber);
+              final date = DateTime(viewMonth.year, viewMonth.month, dayNumber);
               final isSelected = _isSameDay(date, selectedDate);
               final isToday = _isSameDay(date, today);
 
@@ -233,6 +237,9 @@ class _CalendarGrid extends StatelessWidget {
                   width: 40,
                   height: 40,
                   decoration: BoxDecoration(
+                    color: isSelected
+                        ? AppColors.green.withAlpha(80)
+                        : Colors.transparent,
                     shape: BoxShape.circle,
                     border: isSelected
                         ? Border.all(color: AppColors.green, width: 2)
@@ -242,15 +249,15 @@ class _CalendarGrid extends StatelessWidget {
                     child: Text(
                       '$dayNumber',
                       style: TextStyle(
-                        fontSize: 15,
+                        fontSize: 14,
                         fontWeight: isSelected || isToday
                             ? FontWeight.w700
                             : FontWeight.w400,
                         color: isSelected
                             ? AppColors.textPrimary
                             : isToday
-                                ? AppColors.green
-                                : AppColors.textSecondary,
+                            ? AppColors.green
+                            : AppColors.textPrimary,
                       ),
                     ),
                   ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import '../theme/theme.dart';
 
 class AppBottomNavBar extends StatelessWidget {
@@ -16,9 +17,7 @@ class AppBottomNavBar extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: AppColors.grey,
-        border: Border(
-          top: BorderSide(color: AppColors.divider, width: 0.5),
-        ),
+        border: Border(top: BorderSide(color: AppColors.divider, width: 0.5)),
       ),
       child: SafeArea(
         top: false,
@@ -28,25 +27,25 @@ class AppBottomNavBar extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               _NavItem(
-                icon: Icons.local_fire_department_outlined,
+                icon: 'assets/images/nutrition.svg',
                 label: 'Nutrition',
                 isSelected: currentIndex == 0,
                 onTap: () => onTap(0),
               ),
               _NavItem(
-                icon: Icons.calendar_today_outlined,
+                icon: 'assets/images/plan.svg',
                 label: 'Plan',
                 isSelected: currentIndex == 1,
                 onTap: () => onTap(1),
               ),
               _NavItem(
-                icon: Icons.sentiment_satisfied_outlined,
+                icon: 'assets/images/mood.svg',
                 label: 'Mood',
                 isSelected: currentIndex == 2,
                 onTap: () => onTap(2),
               ),
               _NavItem(
-                icon: Icons.person_outline,
+                icon: 'assets/images/profile.svg',
                 label: 'Profile',
                 isSelected: currentIndex == 3,
                 onTap: () => onTap(3),
@@ -60,7 +59,7 @@ class AppBottomNavBar extends StatelessWidget {
 }
 
 class _NavItem extends StatelessWidget {
-  final IconData icon;
+  final String icon;
   final String label;
   final bool isSelected;
   final VoidCallback onTap;
@@ -82,9 +81,10 @@ class _NavItem extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
+            SvgPicture.asset(
               icon,
-              size: 22,
+              width: 24,
+              height: 24,
               color: isSelected ? AppColors.textPrimary : AppColors.textMuted,
             ),
             const SizedBox(height: 3),

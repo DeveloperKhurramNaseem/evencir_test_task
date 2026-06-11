@@ -19,114 +19,126 @@ class WeekDateStrip extends StatelessWidget {
     final today = DateTime.now();
     final weekDates = WeekInfo.weekDates(selectedDate);
 
-    return Padding(
+    return SliverPadding(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Date header
-          Padding(
-            padding: const EdgeInsets.only(left: 8, bottom: 12),
-            child: Text(
-              _formatHeaderDate(selectedDate),
-              style: const TextStyle(
-                fontSize: 17,
-                fontWeight: FontWeight.w700,
-                color: AppColors.textPrimary,
+      sliver: SliverToBoxAdapter(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Date header
+            Padding(
+              padding: const EdgeInsets.only(left: 8, bottom: 14),
+              child: Text(
+                _formatHeaderDate(selectedDate),
+                style: const TextStyle(
+                  fontSize: 17,
+                  fontWeight: FontWeight.w700,
+                  color: AppColors.textPrimary,
+                ),
               ),
             ),
-          ),
-          // Day labels row
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: List.generate(7, (index) {
-              return SizedBox(
-                width: 40,
-                child: Center(
-                  child: Text(
-                    _dayLabels[index],
-                    style: const TextStyle(
-                      fontSize: 11,
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.textMuted,
-                      letterSpacing: 0.3,
+            // Day labels row
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: List.generate(7, (index) {
+                return SizedBox(
+                  width: 40,
+                  child: Center(
+                    child: Text(
+                      _dayLabels[index],
+                      style: const TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w700,
+                        color: AppColors.textPrimary,
+                        letterSpacing: 0.3,
+                      ),
                     ),
                   ),
-                ),
-              );
-            }),
-          ),
-          const SizedBox(height: 8),
-          // Date numbers row
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: List.generate(7, (index) {
-              final date = weekDates[index];
-              final isSelected = _isSameDay(date, selectedDate);
-              final isToday = _isSameDay(date, today);
-              final hasActivity = _isSameDay(date, today);
-
-              return GestureDetector(
-                onTap: () => onDateSelected(date),
-                child: SizedBox(
-                  width: 40,
-                  child: Column(
-                    children: [
-                      Container(
-                        width: 36,
-                        height: 36,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: isSelected
-                              ? Colors.transparent
-                              : Colors.transparent,
-                          border: isSelected
-                              ? Border.all(color: AppColors.green, width: 2)
-                              : null,
-                        ),
-                        child: Center(
-                          child: Text(
-                            '${date.day}',
-                            style: TextStyle(
-                              fontSize: 15,
-                              fontWeight: isSelected
-                                  ? FontWeight.w700
-                                  : FontWeight.w400,
-                              color: isSelected
-                                  ? AppColors.textPrimary
-                                  : AppColors.textSecondary,
+                );
+              }),
+            ),
+            const SizedBox(height: 8),
+            // Date numbers row
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: List.generate(7, (index) {
+                final date = weekDates[index];
+                final isSelected = _isSameDay(date, selectedDate);
+                final isToday = _isSameDay(date, today);
+                final hasActivity = _isSameDay(date, today);
+        
+                return GestureDetector(
+                  onTap: () => onDateSelected(date),
+                  child: SizedBox(
+                    width: 40,
+                    child: Column(
+                      children: [
+                        Container(
+                          width: 36,
+                          height: 36,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: isSelected
+                                ? AppColors.green.withAlpha(80)
+                                : AppColors.cardBackgroundLight,
+                            border: isSelected
+                                ? Border.all(color: AppColors.green, width: 2)
+                                : null,
+                          ),
+                          child: Center(
+                            child: Text(
+                              '${date.day}',
+                              style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: isSelected
+                                    ? FontWeight.w700
+                                    : FontWeight.w400,
+                                color: isSelected
+                                    ? AppColors.textPrimary
+                                    : AppColors.textPrimary,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      const SizedBox(height: 4),
-                      // Activity dot
-                      if (hasActivity)
-                        Container(
-                          width: 5,
-                          height: 5,
-                          decoration: const BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: AppColors.green,
-                          ),
-                        )
-                      else
-                        const SizedBox(height: 5),
-                    ],
+                        const SizedBox(height: 8),
+                        // Activity dot
+                        if (hasActivity)
+                          Container(
+                            width: 7,
+                            height: 7,
+                            decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: AppColors.green,
+                            ),
+                          )
+                        else
+                          const SizedBox(height: 5),
+                      ],
+                    ),
                   ),
-                ),
-              );
-            }),
-          ),
-        ],
+                );
+              }),
+            ),
+          ],
+        ),
       ),
     );
   }
 
   String _formatHeaderDate(DateTime date) {
     const months = [
-      'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-      'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec',
     ];
     const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
     return 'Today, ${date.day} ${months[date.month - 1]} ${date.year}';

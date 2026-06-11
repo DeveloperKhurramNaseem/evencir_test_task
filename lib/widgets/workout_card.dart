@@ -17,46 +17,37 @@ class WorkoutCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Container(
+    return SliverToBoxAdapter(
+      child: GestureDetector(
+        onTap: onTap,
+        child: Container(
           width: double.infinity,
-          height: 100,
+
+          padding: const EdgeInsets.fromLTRB(0, 0, 16, 0),
           decoration: BoxDecoration(
-            gradient: AppColors.seaGreenGradient,
-            borderRadius: BorderRadius.circular(8),
-          ),
-        ),
-        GestureDetector(
-          onTap: onTap,
-          child: Container(
-            width: double.infinity,
-            height: 100,
-            margin: EdgeInsets.only(left: 7),
-            padding: const EdgeInsets.fromLTRB(0, 0, 16, 0),
-            decoration: BoxDecoration(
-              color: AppColors.grey,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(1),
-                bottomLeft: Radius.circular(1),
-                topRight: Radius.circular(8),
-                bottomRight: Radius.circular(8),
-              ),
+            color: AppColors.grey,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(8),
+              bottomLeft: Radius.circular(8),
+              topRight: Radius.circular(8),
+              bottomRight: Radius.circular(8),
             ),
+          ),
+          child: IntrinsicHeight(
             child: Row(
               children: [
-                // Accent left bar
-                // Container(
-                //   width: 7,
-                //   height: 80,
-                //   decoration: BoxDecoration(
-                //     gradient: AppColors.seaGreenGradient,
-                //     borderRadius: const BorderRadius.only(
-                //       topLeft: Radius.circular(16),
-                //       bottomLeft: Radius.circular(16),
-                //     ),
-                //   ),
-                // ),
+                Container(
+                  width: 7,
+                  decoration: BoxDecoration(
+                    gradient: AppColors.seaGreenGradient,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(8),
+                      bottomLeft: Radius.circular(8),
+                      topRight: Radius.circular(0),
+                      bottomRight: Radius.circular(0),
+                    ),
+                  ),
+                ),
                 const SizedBox(width: 16),
                 // Content
                 Expanded(
@@ -69,16 +60,16 @@ class WorkoutCard extends StatelessWidget {
                           '$date · $duration',
                           style: const TextStyle(
                             fontSize: 12,
-                            fontWeight: FontWeight.w500,
-                            color: AppColors.textSecondary,
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.textPrimary,
                           ),
                         ),
                         const SizedBox(height: 6),
                         Text(
                           title,
                           style: const TextStyle(
-                            fontSize: 22,
-                            fontWeight: FontWeight.w700,
+                            fontSize: 23,
+                            fontWeight: FontWeight.w600,
                             color: AppColors.textPrimary,
                           ),
                         ),
@@ -89,14 +80,14 @@ class WorkoutCard extends StatelessWidget {
                 // Arrow
                 const Icon(
                   Icons.arrow_forward,
-                  color: AppColors.textSecondary,
-                  size: 18,
+                  color: AppColors.textPrimary,
+                  size: 24,
                 ),
               ],
             ),
           ),
         ),
-      ],
+      ),
     );
   }
 }

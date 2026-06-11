@@ -19,7 +19,7 @@ class AppTheme {
         elevation: 0,
         systemOverlayStyle: SystemUiOverlayStyle.light,
       ),
-      fontFamily: 'SF Pro Display',
+      fontFamily: 'Mulish',
       pageTransitionsTheme: const PageTransitionsTheme(
         builders: {
           TargetPlatform.android: CupertinoPageTransitionsBuilder(),

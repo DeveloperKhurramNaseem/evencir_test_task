@@ -5,21 +5,17 @@ class WeightCard extends StatelessWidget {
   final double weight;
   final double change;
 
-  const WeightCard({
-    super.key,
-    required this.weight,
-    required this.change,
-  });
+  const WeightCard({super.key, required this.weight, required this.change});
 
   @override
   Widget build(BuildContext context) {
     final isPositive = change >= 0;
 
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
       decoration: BoxDecoration(
         color: AppColors.grey,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(8),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -29,10 +25,10 @@ class WeightCard extends StatelessWidget {
             textBaseline: TextBaseline.alphabetic,
             children: [
               Text(
-                '${weight.toStringAsFixed(0)}',
+                weight.toStringAsFixed(0),
                 style: const TextStyle(
-                  fontSize: 36,
-                  fontWeight: FontWeight.w700,
+                  fontSize: 35,
+                  fontWeight: FontWeight.w600,
                   color: AppColors.textPrimary,
                   letterSpacing: -1,
                 ),
@@ -41,26 +37,26 @@ class WeightCard extends StatelessWidget {
               const Text(
                 'kg',
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: 14,
                   fontWeight: FontWeight.w600,
                   color: AppColors.textSecondary,
                 ),
               ),
             ],
           ),
-          const SizedBox(height: 6),
+          const SizedBox(height: 2),
           Row(
             children: [
               Container(
                 width: 18,
                 height: 18,
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: AppColors.green,
+                  color: AppColors.green.withAlpha(80),
                 ),
                 child: Icon(
                   isPositive ? Icons.arrow_upward : Icons.arrow_downward,
-                  color: Colors.white,
+                  color: AppColors.green,
                   size: 11,
                 ),
               ),
@@ -68,14 +64,14 @@ class WeightCard extends StatelessWidget {
               Text(
                 '${isPositive ? '+' : ''}${change.toStringAsFixed(1)}kg',
                 style: const TextStyle(
-                  fontSize: 12,
+                  fontSize: 13,
                   fontWeight: FontWeight.w500,
                   color: AppColors.textSecondary,
                 ),
               ),
             ],
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 32),
           const Text(
             'Weight',
             style: TextStyle(
@@ -84,6 +80,7 @@ class WeightCard extends StatelessWidget {
               color: AppColors.textPrimary,
             ),
           ),
+          const SizedBox(height: 5),
         ],
       ),
     );

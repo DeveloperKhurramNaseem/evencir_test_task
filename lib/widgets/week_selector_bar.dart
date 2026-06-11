@@ -16,59 +16,49 @@ class WeekSelectorBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final weekInfo = WeekInfo.fromDate(selectedDate);
 
-    return Padding(
+    return SliverPadding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          // Bell icon
-          const Icon(
-            Icons.notifications_outlined,
-            color: AppColors.textSecondary,
-            size: 22,
-          ),
-
-          // Week selector
-          GestureDetector(
-            onTap: onWeekTap,
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-              decoration: BoxDecoration(
-                color: AppColors.grey,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  // Timer/clock icon
-                  const Icon(
-                    Icons.timelapse_rounded,
-                    color: AppColors.textSecondary,
-                    size: 15,
-                  ),
-                  const SizedBox(width: 6),
-                  Text(
-                    weekInfo.label,
-                    style: const TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.textPrimary,
+      sliver: SliverToBoxAdapter(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            // Bell icon
+            Image.asset('assets/images/bell.png', width: 22),
+        
+            // Week selector
+            GestureDetector(
+              onTap: onWeekTap,
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                // decoration: BoxDecoration(
+                //   color: AppColors.grey,
+                //   borderRadius: BorderRadius.circular(20),
+                // ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    // Timer/clock icon
+                    Image.asset('assets/images/timer.png', width: 22),
+                    const SizedBox(width: 6),
+                    Text(
+                      weekInfo.label,
+                      style: const TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w700,
+                        color: AppColors.textPrimary,
+                      ),
                     ),
-                  ),
-                  const SizedBox(width: 4),
-                  const Icon(
-                    Icons.keyboard_arrow_down_rounded,
-                    color: AppColors.textSecondary,
-                    size: 16,
-                  ),
-                ],
+                    const SizedBox(width: 6),
+                    Image.asset('assets/images/arrow_down.png', width: 10),
+                  ],
+                ),
               ),
             ),
-          ),
-
-          // Placeholder for right side
-          const SizedBox(width: 22),
-        ],
+        
+            // Placeholder for right side
+            const SizedBox(width: 22),
+          ],
+        ),
       ),
     );
   }

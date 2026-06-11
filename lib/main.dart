@@ -22,7 +22,7 @@ class FitnessApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Fitness Tracker',
-      debugShowCheckedModeBanner: false,
+      debugShowCheckedModeBanner: false,      
       theme: AppTheme.darkTheme,
       home: const HomeScreen(),
     );

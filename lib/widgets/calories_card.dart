@@ -5,11 +5,7 @@ class CaloriesCard extends StatelessWidget {
   final int consumed;
   final int total;
 
-  const CaloriesCard({
-    super.key,
-    required this.consumed,
-    required this.total,
-  });
+  const CaloriesCard({super.key, required this.consumed, required this.total});
 
   @override
   Widget build(BuildContext context) {
@@ -17,10 +13,10 @@ class CaloriesCard extends StatelessWidget {
     final progress = consumed / total;
 
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
       decoration: BoxDecoration(
         color: AppColors.grey,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(8),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -33,19 +29,18 @@ class CaloriesCard extends StatelessWidget {
               Text(
                 '$consumed',
                 style: const TextStyle(
-                  fontSize: 36,
-                  fontWeight: FontWeight.w700,
+                  fontSize: 35,
+                  fontWeight: FontWeight.w600,
                   color: AppColors.textPrimary,
                   letterSpacing: -1,
                 ),
               ),
-              const SizedBox(width: 4),
               const Text(
-                'Calories',
+                ' Calories',
                 style: TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.w500,
-                  color: AppColors.textSecondary,
+                  fontSize: 15,
+                  fontWeight: FontWeight.w700,
+                  color: AppColors.textPrimary,
                 ),
               ),
             ],
@@ -54,27 +49,37 @@ class CaloriesCard extends StatelessWidget {
           Text(
             '$remaining Remaining',
             style: const TextStyle(
-              fontSize: 12,
+              fontSize: 13,
               fontWeight: FontWeight.w400,
               color: AppColors.textSecondary,
             ),
           ),
-          const SizedBox(height: 14),
+          const SizedBox(height: 30),
           // Progress bar
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text('0', style: TextStyle(fontSize: 10, color: AppColors.textMuted)),
-              Text('$total', style: const TextStyle(fontSize: 10, color: AppColors.textMuted)),
+              const Text(
+                '0',
+                style: TextStyle(fontSize: 12, color: AppColors.textSecondary),
+              ),
+              Text(
+                '$total',
+                style: const TextStyle(
+                  fontSize: 12,
+                  color: AppColors.textSecondary,
+                ),
+              ),
             ],
           ),
           const SizedBox(height: 4),
           ClipRRect(
             borderRadius: BorderRadius.circular(4),
             child: Container(
+              width: double.infinity,
               height: 5,
               decoration: BoxDecoration(
-                color: AppColors.divider,
+                color: AppColors.textMuted,
                 borderRadius: BorderRadius.circular(4),
               ),
               child: FractionallySizedBox(
