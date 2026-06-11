@@ -1,11 +1,19 @@
-import 'package:evencir_test/mood_screen/mood_screen.dart';
-import 'package:evencir_test/training_plan/screens/training_calendar_screen.dart';
-import 'package:evencir_test/widgets/section_headers.dart';
-import 'package:evencir_test/widgets/short_divider.dart';
-import 'package:evencir_test/widgets/space_widget.dart';
+
+import 'package:evencir_test/screens/home_screen/widgets/app_bottom_nav_bar.dart';
+import 'package:evencir_test/screens/home_screen/widgets/calendar_bottom_sheet.dart';
+import 'package:evencir_test/screens/home_screen/widgets/calories_card.dart';
+import 'package:evencir_test/screens/home_screen/widgets/hydration_card.dart';
+import 'package:evencir_test/screens/home_screen/widgets/section_headers.dart';
+import 'package:evencir_test/screens/home_screen/widgets/short_divider.dart';
+import 'package:evencir_test/screens/home_screen/widgets/space_widget.dart';
+import 'package:evencir_test/screens/home_screen/widgets/week_date_strip.dart';
+import 'package:evencir_test/screens/home_screen/widgets/week_selector_bar.dart';
+import 'package:evencir_test/screens/home_screen/widgets/weight_card.dart';
+import 'package:evencir_test/screens/home_screen/widgets/workout_card.dart';
+import 'package:evencir_test/screens/mood_screen/mood_screen.dart';
+import 'package:evencir_test/screens/training_plan/screens/training_calendar_screen.dart';
+import 'package:evencir_test/theme/app_colors.dart';
 import 'package:flutter/material.dart';
-import '../theme/theme.dart';
-import '../widgets/widgets.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -15,18 +23,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  DateTime _selectedDate = DateTime(2024, 12, 22);
   int _currentNavIndex = 0;
-
-  Future<void> _onWeekTap() async {
-    final picked = await CalendarBottomSheet.show(
-      context,
-      initialDate: _selectedDate,
-    );
-    if (picked != null) {
-      setState(() => _selectedDate = picked);
-    }
-  }
 
   @override
   Widget build(BuildContext context) {

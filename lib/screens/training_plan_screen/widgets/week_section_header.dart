@@ -1,6 +1,7 @@
+import 'package:evencir_test/models/training_models.dart';
+import 'package:evencir_test/theme/app_colors.dart';
 import 'package:flutter/material.dart';
-import '../models/training_models.dart';
-import '../theme/plan_colors.dart';
+
 
 class WeekSectionHeader extends StatelessWidget {
   final TrainingWeek week;

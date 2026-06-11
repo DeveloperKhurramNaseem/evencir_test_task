@@ -1,5 +1,5 @@
+import 'package:evencir_test/theme/app_colors.dart';
 import 'package:flutter/material.dart';
-import '../theme/theme.dart';
 
 class HydrationCard extends StatelessWidget {
   final double currentLitres;

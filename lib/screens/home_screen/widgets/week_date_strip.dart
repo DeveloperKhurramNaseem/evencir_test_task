@@ -1,6 +1,6 @@
+import 'package:evencir_test/models/week_info.dart';
+import 'package:evencir_test/theme/app_colors.dart';
 import 'package:flutter/material.dart';
-import '../theme/theme.dart';
-import '../models/week_info.dart';
 
 class WeekDateStrip extends StatelessWidget {
   final DateTime selectedDate;

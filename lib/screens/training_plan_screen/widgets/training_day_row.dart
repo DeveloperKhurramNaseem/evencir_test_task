@@ -1,7 +1,8 @@
+import 'package:evencir_test/models/training_models.dart';
+import 'package:evencir_test/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../models/training_models.dart';
-import '../theme/plan_colors.dart';
+
 import 'draggable_workout_card.dart';
 
 class TrainingDayRow extends StatefulWidget {

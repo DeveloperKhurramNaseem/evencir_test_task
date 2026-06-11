@@ -1,5 +1,5 @@
+import 'package:evencir_test/theme/app_colors.dart';
 import 'package:flutter/material.dart';
-import '../theme/plan_colors.dart';
 
 /// Six-dot (2×3 grid) drag handle — identical to the one in the screenshot
 class DragHandleWidget extends StatelessWidget {

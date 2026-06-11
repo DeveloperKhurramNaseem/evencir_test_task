@@ -1,5 +1,5 @@
+import 'package:evencir_test/models/training_models.dart';
 import 'package:flutter/material.dart';
-import '../models/training_models.dart';
 
 class WorkoutCategoryChip extends StatelessWidget {
   final WorkoutCategory category;
@@ -17,11 +17,7 @@ class WorkoutCategoryChip extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(
-            category.icon,
-            color: category.chipColor,
-            size: 11,
-          ),
+          Icon(category.icon, color: category.chipColor, size: 11),
           const SizedBox(width: 4),
           Text(
             category.label,

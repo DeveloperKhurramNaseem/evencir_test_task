@@ -1,4 +1,7 @@
 import 'dart:math' as math;
+import 'package:evencir_test/screens/mood_screen/widgets/drag_handle.dart';
+import 'package:evencir_test/screens/mood_screen/widgets/mood_face.dart';
+import 'package:evencir_test/screens/mood_screen/widgets/mood_ring_painter.dart';
 import 'package:evencir_test/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -68,13 +71,6 @@ final List<Color> kArcGradient = [
   Color(0xFFC9BBEF),
   Color(0xFFF28DB3),
   Color(0xFFF99955),
-  // const Color(0xFF7EC8C8), // teal  (top)
-  // const Color(0xFFF5A623), // orange
-  // const Color(0xFFFF6B6B), // coral (right → bottom)
-  // const Color(0xFF9B59B6), // purple
-  // const Color(0xFF6C5CE7), // indigo (bottom → left)
-  // const Color(0xFF764BA2), // violet
-  // const Color(0xFF7EC8C8), // back to teal (wrap)
 ];
 
 // ─── Screen ────────────────────────────────────────────────────────────────
@@ -262,14 +258,14 @@ class _MoodScreenState extends State<MoodScreen> with TickerProviderStateMixin {
                               // Face card
                               ScaleTransition(
                                 scale: _faceScale,
-                                child: _MoodFace(
+                                child: MoodFace(
                                   mood: mood,
                                   size: ringDiameter * 0.44,
                                 ),
                               ),
 
                               // Draggable handle
-                              _DragHandle(
+                              DragHandle(
                                 angle: _handleAngle,
                                 radius: ringDiameter / 2,
                                 center: center,
@@ -354,169 +350,4 @@ class _MoodScreenState extends State<MoodScreen> with TickerProviderStateMixin {
   }
 }
 
-// ─── Mood Face Widget ──────────────────────────────────────────────────────
 
-class _MoodFace extends StatelessWidget {
-  final MoodData mood;
-  final double size;
-
-  const _MoodFace({required this.mood, required this.size});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: size,
-      height: size,
-      decoration: BoxDecoration(
-        color: mood.faceColor,
-        borderRadius: BorderRadius.circular(size * 0.28),
-        boxShadow: [
-          BoxShadow(
-            color: mood.faceColor.withOpacity(0.35),
-            blurRadius: 24,
-            offset: const Offset(0, 6),
-          ),
-        ],
-      ),
-      // child: CustomPaint(painter: _FacePainter(mood: mood)),
-      child: Builder(
-        builder: (context) {
-          if (mood.label == 'Calm') {
-            return SvgPicture.asset('assets/images/calm.svg');
-          } else if (mood.label == 'Content') {
-            return SvgPicture.asset('assets/images/content.svg');
-          } else if (mood.label == 'Peaceful') {
-            return SvgPicture.asset('assets/images/peaceful.svg');
-          } else {
-            return SvgPicture.asset('assets/images/happy.svg');
-          }
-        },
-      ),
-    );
-  }
-}
-
-// ─── Ring Painter ──────────────────────────────────────────────────────────
-
-class MoodRingPainter extends CustomPainter {
-  final double handleAngle;
-  final List<Color> colors;
-
-  const MoodRingPainter({required this.handleAngle, required this.colors});
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final center = Offset(size.width / 2, size.height / 2);
-    final radius = size.width / 2;
-    const strokeWidth = 22.0;
-
-    final rect = Rect.fromCircle(
-      center: center,
-      radius: radius - strokeWidth / 2,
-    );
-
-    // Background track
-    final trackPaint = Paint()
-      ..color = Colors.white.withOpacity(0.06)
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = strokeWidth
-      ..strokeCap = StrokeCap.butt;
-    canvas.drawCircle(center, radius - strokeWidth / 2, trackPaint);
-
-    // Gradient arc (full circle)
-    final gradient = SweepGradient(
-      startAngle: -math.pi / 2,
-      endAngle: -math.pi / 2 + 2 * math.pi,
-      colors: colors,
-    );
-
-    final arcPaint = Paint()
-      ..shader = gradient.createShader(rect)
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = strokeWidth
-      ..strokeCap = StrokeCap.butt;
-
-    canvas.drawArc(rect, -math.pi / 2, 2 * math.pi, false, arcPaint);
-
-    // Subtle tick marks
-    final tickPaint = Paint()
-      ..color = Colors.black.withOpacity(0.18)
-      ..strokeWidth = 1.5;
-    const tickCount = 48;
-    for (int i = 0; i < tickCount; i++) {
-      final angle = (2 * math.pi / tickCount) * i - math.pi / 2;
-      final inner =
-          center +
-          Offset(math.cos(angle), math.sin(angle)) * (radius - strokeWidth);
-      final outer = center + Offset(math.cos(angle), math.sin(angle)) * radius;
-      canvas.drawLine(inner, outer, tickPaint);
-    }
-  }
-
-  @override
-  bool shouldRepaint(MoodRingPainter old) => old.handleAngle != handleAngle;
-}
-
-// ─── Drag Handle ───────────────────────────────────────────────────────────
-
-class _DragHandle extends StatelessWidget {
-  final double angle;
-  final double radius;
-  final Offset center;
-
-  const _DragHandle({
-    required this.angle,
-    required this.radius,
-    required this.center,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    const handleR = 22.0;
-    const ringStroke = 22.0;
-    final effectiveRadius = radius - ringStroke / 2;
-
-    final dx = math.cos(angle) * effectiveRadius;
-    final dy = math.sin(angle) * effectiveRadius;
-
-    return Positioned(
-      left: center.dx + dx - handleR,
-      top: center.dy + dy - handleR,
-      child: Container(
-        width: handleR * 2,
-        height: handleR * 2,
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: Colors.white.withOpacity(0.92),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.35),
-              blurRadius: 12,
-              offset: const Offset(0, 4),
-            ),
-          ],
-        ),
-        child: Center(
-          child: Container(
-            width: 28,
-            height: 28,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: const Color(0xFF2C2C40).withOpacity(0.85),
-            ),
-            child: const Center(
-              child: Text(
-                'R',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 13,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}

@@ -1,6 +1,6 @@
+import 'package:evencir_test/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import '../theme/theme.dart';
 
 class AppBottomNavBar extends StatelessWidget {
   final int currentIndex;
