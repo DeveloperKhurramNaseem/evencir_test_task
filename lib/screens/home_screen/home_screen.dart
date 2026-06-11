@@ -11,7 +11,7 @@ import 'package:evencir_test/screens/home_screen/widgets/week_selector_bar.dart'
 import 'package:evencir_test/screens/home_screen/widgets/weight_card.dart';
 import 'package:evencir_test/screens/home_screen/widgets/workout_card.dart';
 import 'package:evencir_test/screens/mood_screen/mood_screen.dart';
-import 'package:evencir_test/screens/training_plan/screens/training_calendar_screen.dart';
+import 'package:evencir_test/screens/training_plan_screen/training_calendar_screen.dart';
 import 'package:evencir_test/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 

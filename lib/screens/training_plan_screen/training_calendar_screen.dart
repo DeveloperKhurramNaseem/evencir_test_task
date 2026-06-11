@@ -1,7 +1,7 @@
 import 'package:evencir_test/models/training_models.dart';
-import 'package:evencir_test/screens/training_plan/widgets/training_day_row.dart';
-import 'package:evencir_test/screens/training_plan/widgets/week_section_header.dart';
 import 'package:evencir_test/screens/training_plan_screen/widgets/day_divider.dart';
+import 'package:evencir_test/screens/training_plan_screen/widgets/training_day_row.dart';
+import 'package:evencir_test/screens/training_plan_screen/widgets/week_section_header.dart';
 import 'package:evencir_test/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 
@@ -309,13 +309,3 @@ class _DragStateListener extends StatelessWidget {
   Widget build(BuildContext context) => child;
 }
 
-class _NavItem {
-  final IconData icon;
-  final String label;
-  final bool selected;
-  const _NavItem({
-    required this.icon,
-    required this.label,
-    this.selected = false,
-  });
-}
