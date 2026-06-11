@@ -113,17 +113,21 @@ Application entry point.
 
 ![Home Screen](screenshots/home.png)
 
-### Details Screen
+### Home Screen Calender
 
-![Details Screen](screenshots/details.png)
+![Home Screen Calender](screenshots/calender.png)
 
-### Profile Screen
+### Plan Screen
 
-![Profile Screen](screenshots/profile.png)
+![Details Screen](screenshots/plan.png)
+
+### Mood Screen
+
+![Profile Screen](screenshots/mood.png)
 
 ### Screenshots Folder
 
-[View All Screenshots](https://github.com/username/project-name/tree/main/screenshots)
+[View All Screenshots](https://github.com/DeveloperKhurramNaseem/evencir_test_task/tree/main/screenshots)
 
 ---
 
