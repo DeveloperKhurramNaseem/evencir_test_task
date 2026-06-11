@@ -10,22 +10,13 @@ A Flutter application developed as part of the interview assessment task. The ap
 
 # 📦 Dependencies Used & Why
 
-| Dependency             | Purpose                                                              |
-| ---------------------- | -------------------------------------------------------------------- |
-| `dio`                  | Used for making API requests and handling network calls efficiently. |
-| `flutter_bloc`         | Used for state management and separation of business logic from UI.  |
-| `equatable`            | Simplifies object comparison and improves Bloc state handling.       |
-| `get_it`               | Dependency injection and service locator implementation.             |
-| `injectable`           | Generates dependency injection boilerplate code.                     |
-| `json_annotation`      | Supports JSON serialization and deserialization.                     |
-| `json_serializable`    | Generates model serialization code automatically.                    |
-| `go_router`            | Application routing and navigation management.                       |
-| `cached_network_image` | Efficient image loading and caching.                                 |
-| `flutter_svg`          | Displays SVG images and icons.                                       |
-| `logger`               | Application logging and debugging.                                   |
-| `shared_preferences`   | Stores local application preferences and settings.                   |
+# 📦 Dependencies Used & Why
 
-> Replace the dependencies above with the actual packages used in your project.
+| Dependency        | Purpose                                                             |
+| ----------------- | ------------------------------------------------------------------- |
+| `flutter`         | Core framework used to build the cross-platform mobile application. |
+| `cupertino_icons` | Provides iOS-style icons for a consistent user interface.           |
+
 
 ---
 
@@ -34,76 +25,59 @@ A Flutter application developed as part of the interview assessment task. The ap
 ```text
 lib/
 │
-├── core/
-│   ├── constants/
-│   ├── network/
-│   ├── routes/
-│   ├── services/
-│   └── utils/
+├── models/
 │
-├── features/
-│   ├── feature_name/
-│   │   ├── data/
-│   │   │   ├── models/
-│   │   │   ├── repositories/
-│   │   │   └── data_sources/
-│   │   │
-│   │   ├── domain/
-│   │   │   ├── entities/
-│   │   │   ├── repositories/
-│   │   │   └── usecases/
-│   │   │
-│   │   └── presentation/
-│   │       ├── bloc/
-│   │       ├── pages/
-│   │       └── widgets/
+├── screens/
+│   ├── home_screen/
+│   │   ├── widgets/
+│   │   └── home_screen.dart
+│   │
+│   ├── mood_screen/
+│   │   ├── widgets/
+│   │   └── mood_screen.dart
+│   │
+│   └── training_plan_screen/
+│       ├── widgets/
+│       └── training_plan_screen.dart
 │
-├── injection/
+├── theme/
 │
 └── main.dart
 ```
 
-### Folder Explanation
+## Folder Explanation
 
-#### `core/`
+### `models/`
 
-Contains reusable application-wide functionality such as:
+Contains all data models used throughout the application. These models represent the application's data structures and help organize and manage data efficiently.
 
-* API client configuration
-* App constants
-* Utility functions
-* Routing configuration
-* Shared services
+### `screens/`
 
-#### `features/`
+Contains all application screens. Each screen is organized into its own feature folder.
 
-Contains feature-based modules following Clean Architecture principles.
+#### `home_screen/`
 
-##### `data/`
+Contains the Home Screen implementation and all widgets that are specific to the Home Screen.
 
-* API models
-* Repository implementations
-* Remote/local data sources
+#### `mood_screen/`
 
-##### `domain/`
+Contains the Mood Screen implementation and all widgets related to mood tracking and display.
 
-* Business entities
-* Repository contracts
-* Use cases
+#### `training_plan_screen/`
 
-##### `presentation/`
+Contains the Training Plan Screen implementation and all widgets used to display and manage training plans.
 
-* UI screens
-* Widgets
-* State management (Bloc/Cubit)
+### `widgets/`
 
-#### `injection/`
+Each screen contains a dedicated `widgets` folder that holds reusable UI components used only within that screen. This keeps the screen file clean and improves code organization and maintainability.
 
-Dependency injection setup using GetIt and Injectable.
+### `theme/`
 
-#### `main.dart`
+Contains application-wide styling, colors, typography, and theme configurations to ensure a consistent user experience throughout the app.
 
-Application entry point.
+### `main.dart`
+
+The application's entry point. It initializes the app, configures themes, and loads the initial screen.
 
 ---
 
@@ -159,7 +133,7 @@ Download and install the latest APK:
 ## Installation
 
 ```bash
-git clone https://github.com/username/project-name.git
+git clone https://github.com/DeveloperKhurramNaseem/evencir_test_task.git
 
 cd project-name
 
@@ -194,7 +168,7 @@ GitHub Repository Link should be shared via email:
 
 # 👨‍💻 Developer
 
-Your Name
+M Khuram Naseem
 
 Flutter Developer
 
